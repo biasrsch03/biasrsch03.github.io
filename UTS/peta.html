@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+    <title>Peta Tempat Favorit di UGM</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+   
+        <style> 
+        h3 {
+        border: 8px
+        }
+        html, body, section
+        {
+        position: relative;
+        height: 100%;
+        background-color: rgb(250, 225, 194);
+        }
+        html   {scroll-behavior: smooth;}
+        #map {
+        width: 1270px;
+        height: 520px;
+        }
+
+        </style> 
+    </head> 
+    <body> 
+        <center><h3 style="color:rgb(134, 62, 62);"><b>PETA TEMPAT FAVORIT DI UNIVERSITAS GADJAH MADA</h3></center>
+        <div id="map"></div>
+        <script>
+        var bgnIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/2377/2377922.png',
+            iconSize:     [25, 25], // size of the icon
+            iconAnchor:   [10, 25], // point of the icon which will correspond to marker's location
+            popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+        });
+               
+        var lembah       = L.marker([-7.768913413681774, 110.38314305990107], {icon: bgnIcon}).bindPopup('<center><img src="lembah.png" width="200px" height="200px"></center><h1>Danau Lembah UGM</h1><p>Lembah UGM yang berbatasan antar dua kampus besar (UGM – UNY) dalam kurun waktu beberapa waktu mulai bersolek. Kawasan lembah UGM kali ini banyak digunakan oleh mahasiswa untuk lari sore maupun pagi. Tidak jarang melihat warga setempat yang memancing di danaunya.</p><p>Link Maps: https://maps.app.goo.gl/NNPWP1m4KfibxYau5</p> '),
+            stadion      = L.marker([-7.769124121809643, 110.38473801073332], {icon: bgnIcon})
+            .bindPopup('<center><img src="stadion.jpeg" width="200px" height="200px"></center><h1>Stadion Pancasila UGM</h1><p></p>Stadion Pancasila merupakan salah satu fasilitas olahraga yang terdapat di komplek Lembah UGM. Di dalam stadion ini terdapat lapangan sepak bola yang dapat dipakai oleh siapa saja, baik civitas akademika UGM maupun masyarakat umum.Selain lapangan sepak bola, juga terdapat lintasan lari yang digunakan untuk olahraga lari atau olahraga atletik lainnya. Bangunan ini umurnya sudah lebih dari 10 tahun dan sebenarnya konstruksi bangunannya belum terselesaikan.<p>Link Maps: https://maps.app.goo.gl/xkosYgZuyransejy7</p> '),
+            perpusugm        = L.marker([-7.769173943896113, 110.37818432285263], {icon: bgnIcon})
+            .bindPopup('<center><img src="perpus.jpg" width="200px" height="200px"></center><h1>Perpustakaan UGM</h1><p>Perpustakaan UGM berada di selatan Gedung Pusat. Gedung lima lantai ini menempati bekas Gedung Konferensi Kolombo pada 19 Desember 1959, yang lebih dikenal sebagai Perpustakaan UGM Unit II dengan luas bangunan 4.461 m2. </p><p>Link Maps: https://maps.app.goo.gl/gQrnAU3X5zuWi85r6</p> '),
+            sglc         = L.marker([-7.765518526622632, 110.37228701714338], {icon: bgnIcon})
+            .bindPopup('<center><img src="sglc.jpg" width="200px" height="200px"></center><h1>Smart Green Learning Center (SGLC) UGM</h1><p>Gedung Smart and Green Learning Center (SGLC) yang akan dibangun di lingkungan Fakultas Teknik UGM menggantikan gedung Kantor Pusat Fakultas Teknik (KPFT) akan berfungsi sebagai pusat pembelajaran dan inovasi lintas departemen di Fakultas Teknik. Desain gedung tersebut disusun dengan menggunakan konsep bangunan hijau.</p><p>Link Maps: https://maps.app.goo.gl/xH7xphpC2kkBSVQA6</p> '),
+            masjid       = L.marker([-7.773279097007479, 110.37998177438655], {icon: bgnIcon})
+            .bindPopup('<center><img src="masjid.jpg" width="200px" height="200px"></center><h1>Masjid Kampus UGM</h1><p>Masjid Kampus Universitas Gadjah Mada, atau yang lebih dikenal dengan Masjid Kampus UGM atau Maskam UGM, adalah sebuah masjid kampus milik Universitas Gadjah Mada yang terletak di Kabupaten Sleman, Daerah Istimewa Yogyakarta. Masjid ini merupakan masjid kampus terbesar di Asia Tenggara. </p><p>Link Maps: https://maps.app.goo.gl/DpVsvwFgChVku53L9</p> ');
+        var bgn = L.layerGroup([lembah, stadion, perpusugm, sglc, masjid]);
+        
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 20,
+            attribution: '© OpenStreetMap'
+        });
+
+        var osm2 = L.tileLayer('https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+        var map = L.map('map', {
+            center: [-7.7699736580616445, 110.3778320134012],
+            zoom: 15,
+            layers: [osm, bgn]
+        });
+
+        var baseMaps = {
+            "OpenStreetMap": osm,
+            "OpenStreetMap.maps": osm2
+        };
+
+        var overlayMaps = {
+            "Tempat Favorit": bgn
+        };
+        
+        var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+        var baseMaps = {
+            "OpenStreetMap": osm,
+            "<span style='color: red'>OpenStreetMap.maps</span>": osm2
+        };
+        
+        
+       </script> 
+    </body> 
+</html>
